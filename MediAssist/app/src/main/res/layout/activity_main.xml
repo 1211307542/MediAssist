@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Profile Icon -->
+    <ImageView
+        android:id="@+id/profileIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="ProfileIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/profile"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <!-- Header Text (Welcome to MediAssist!) -->
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to MediAssist!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/profileIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/menu"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- Subheading Text (How can we help you today?) -->
+    <TextView
+        android:id="@+id/subheadingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How can we help you today?"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/welcomeText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- Book Appointment Button -->
+    <Button
+        android:id="@+id/bookAppointmentButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="Book Appointment"
+        android:textColor="#000000"
+        android:backgroundTint="#D0E6FF"
+        app:layout_constraintTop_toBottomOf="@id/subheadingText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Set Reminders Button -->
+    <Button
+        android:id="@+id/setRemindersButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="View Reminders"
+        android:textColor="#000000"
+        android:backgroundTint="#D0E6FF"
+        app:layout_constraintTop_toBottomOf="@id/bookAppointmentButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Track Medication History Button -->
+    <Button
+        android:id="@+id/trackMedicationHistoryButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="Track Medication History"
+        android:textColor="#000000"
+        android:backgroundTint="#D0E6FF"
+        app:layout_constraintTop_toBottomOf="@id/setRemindersButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- View Appointments Button -->
+    <Button
+        android:id="@+id/btnViewAppointments"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="View Appointments"
+        android:textColor="#000000"
+        android:backgroundTint="#D0E6FF"
+        app:layout_constraintTop_toBottomOf="@id/trackMedicationHistoryButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
