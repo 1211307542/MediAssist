@@ -89,10 +89,6 @@ app/
 4. Test thoroughly
 5. Submit a pull request
 
-## License
-
-[Add your license information here]
-
 ## Support
 
-For support and questions, please contact [your-email@example.com] 
+For support and questions, please contact 1211307542@student.mmu.edu.my
