@@ -72,16 +72,35 @@ class ManageAvailabilityActivity : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val role = document.getString("role")
-                    if (role != "healthcare" && role != "healthcare professional") {
-                        Toast.makeText(this, "Only doctors can manage availability", Toast.LENGTH_SHORT).show()
+                    Log.d("ManageAvailability", "User role: '$role'")
+                    Log.d("ManageAvailability", "User ID: ${currentUser.uid}")
+                    Log.d("ManageAvailability", "Document data: ${document.data}")
+                    
+                    // Show role in toast for debugging
+                    Toast.makeText(this, "User role: '$role'", Toast.LENGTH_LONG).show()
+                    
+                    // Check if role is any healthcare-related value
+                    val isHealthcareProvider = role?.lowercase()?.contains("healthcare") == true ||
+                                             role?.lowercase()?.contains("doctor") == true ||
+                                             role == "healthcare" ||
+                                             role == "healthcare professional"
+                    
+                    if (!isHealthcareProvider) {
+                        Toast.makeText(this, "Only healthcare providers can manage availability. Your role: '$role'", Toast.LENGTH_LONG).show()
                         finish()
+                    } else {
+                        Log.d("ManageAvailability", "Authentication successful - user is healthcare provider")
                     }
                 } else {
                     Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
+                    Log.d("ManageAvailability", "User document does not exist")
+                    finish()
                 }
             }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to verify user role", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to verify user role: ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.e("ManageAvailability", "Role verification failed", e)
+                finish()
             }
     }
 
@@ -249,22 +268,33 @@ class ManageAvailabilityActivity : AppCompatActivity() {
                 return@checkForDuplicateSlot
             }
             
-            val slot = AvailabilitySlot(
-                doctorId = doctorId,
-                date = date,
-                startTime = start,
-                endTime = end,
-                isBooked = false
+            // Create the exact data structure that Firestore rules expect
+            val slotData = hashMapOf(
+                "doctorId" to doctorId,
+                "date" to date,
+                "startTime" to start,
+                "endTime" to end,
+                "isBooked" to false
             )
 
+            Log.d("ManageAvailability", "Creating slot with data:")
+            Log.d("ManageAvailability", "doctorId: $doctorId")
+            Log.d("ManageAvailability", "date: $date")
+            Log.d("ManageAvailability", "startTime: $start")
+            Log.d("ManageAvailability", "endTime: $end")
+            Log.d("ManageAvailability", "isBooked: false")
+            Log.d("ManageAvailability", "Current user ID: ${auth.currentUser?.uid}")
+
             db.collection("doctor_availability")
-                .add(slot)
-                .addOnSuccessListener {
+                .add(slotData)
+                .addOnSuccessListener { documentReference ->
+                    Log.d("ManageAvailability", "Slot created successfully with ID: ${documentReference.id}")
                     Toast.makeText(this, "Slot added", Toast.LENGTH_SHORT).show()
                     loadSlots()
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to add slot", Toast.LENGTH_SHORT).show()
+                .addOnFailureListener { e ->
+                    Log.e("ManageAvailability", "Failed to add slot", e)
+                    Toast.makeText(this, "Failed to add slot: ${e.message}", Toast.LENGTH_LONG).show()
                 }
         }
     }

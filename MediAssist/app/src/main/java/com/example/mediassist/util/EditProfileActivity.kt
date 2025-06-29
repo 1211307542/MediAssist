@@ -30,14 +30,12 @@ class EditProfileActivity : ComponentActivity() {
                 .addOnSuccessListener { document ->
                     val fullName = document.getString("fullName") ?: ""
                     val email = document.getString("email") ?: ""
-                    val password = "" // Password is not stored in Firestore
 
                     setContent {
                         MediAssistTheme {
                             EditProfileScreen(
                                 fullName = fullName,
                                 email = email,
-                                password = password,
                                 userId = userId,
                                 db = db,
                                 onLogoutClick = {

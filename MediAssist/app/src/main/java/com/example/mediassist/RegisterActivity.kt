@@ -2,7 +2,10 @@ package com.example.mediassist
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,13 +29,22 @@ class RegisterActivity : AppCompatActivity() {
         val radioGroupRole = findViewById<RadioGroup>(R.id.radioGroupRole)
         val buttonRegister = findViewById<Button>(R.id.buttonRegister)
 
+        // Ensure default selection is Patient
+        radioGroupRole.check(R.id.radioPatient)
+
         buttonRegister.setOnClickListener {
             val fullName = fullNameField.text.toString().trim()
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
             val confirmPassword = confirmPasswordField.text.toString().trim()
             val selectedRoleId = radioGroupRole.checkedRadioButtonId
-            val selectedRole = if (selectedRoleId == R.id.radioHealthcare) "healthcare" else "patient"
+            
+            // Explicit role selection logic
+            val selectedRole = when (selectedRoleId) {
+                R.id.radioPatient -> "patient"
+                R.id.radioHealthcare -> "healthcare"
+                else -> null
+            }
 
             if (fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
@@ -41,6 +53,11 @@ class RegisterActivity : AppCompatActivity() {
 
             if (password != confirmPassword) {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (selectedRole == null) {
+                Toast.makeText(this, "Please select a role", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -58,7 +75,7 @@ class RegisterActivity : AppCompatActivity() {
                         db.collection("users").document(userId!!)
                             .set(userMap)
                             .addOnSuccessListener {
-                                Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "Registered successfully as $selectedRole", Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(this, LoginActivity::class.java))
                                 finish()
                             }

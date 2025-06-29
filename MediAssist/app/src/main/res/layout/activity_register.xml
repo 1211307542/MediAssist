@@ -88,40 +88,29 @@
             android:layout_marginHorizontal="20dp"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/radioPatient"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="48dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:text="Patient"
+                android:textSize="14sp"
+                android:paddingStart="8dp"
+                android:checked="true" />
 
-                <RadioButton
-                    android:id="@+id/radioPatient"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    android:text="Patient"
-                    android:checked="true" />
-            </LinearLayout>
-
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/radioHealthcare"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="48dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:text="Healthcare Professional"
+                android:textSize="14sp"
+                android:paddingStart="8dp" />
 
-                <RadioButton
-                    android:id="@+id/radioHealthcare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    android:text="Healthcare Professional" />
-            </LinearLayout>
         </RadioGroup>
 
         <Button
